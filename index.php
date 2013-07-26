@@ -45,13 +45,13 @@ $objPHPExcel->setActiveSheetIndex(0);
 $objActSheet = $objPHPExcel->getActiveSheet();
 $objActSheet->setTitle('测试Sheet');
 
-for($w=0;$w<$width;$w++){
-	for($h=0;$h<$height;$h++){
+for($w=1;$w<$width;$w++){
+	for($h=1;$h<$height;$h++){
 		$objStyleA5 = $objActSheet->getStyle(getCellName($w).$h);
 		$objFillA5 = $objStyleA5->getFill();
 		$objPHPExcel->setActiveSheetIndex(0)->setCellValue(getCellName($w).$h, get_rgb($im,$w,$h));
 		$objFillA5->setFillType(PHPExcel_Style_Fill::FILL_SOLID);
-		$objFillA5->getStartColor()->setRGB(get_rgb($im,$w,$h));
+		$objFillA5->getStartColor()->setRGB(get_rgb($im,$w-1,$h-1));
 	
 	}
 
@@ -66,11 +66,11 @@ $objWriter->save(str_replace('.php', '.xlsx', __FILE__));
 
 function getCellName($num){
 	$str='';
-	$arr=array('0'=>'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	$arr=array('0'=>'','1'=>'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
 
 	do{
-	 $d=$num%26;
-	 $num=floor($num/26);
+	 $d=$num%27;
+	 $num=floor($num/27);
 	 $str=$arr[$d].$str;
 	}while($num>0);
 
